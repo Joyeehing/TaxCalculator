@@ -10,20 +10,21 @@ def home():
 @app.route("/api/calcTax", methods=["POST"])
 def calcTax():
   """
-  Expects JSON like: {"a": <number>, "b": <number>}
+  Expects JSON like: {"a": <number>, "b": <number>, "c": <number>}
   Returns: {"tax": <number>}
   """
   data = request.get_json(silent=True)
 
-  if not data or "a" not in data or "b" not in data:
+  if not data or "a" not in data or "b" not in data or "c" not in data:
     return jsonify({"error1": "Income can not be blank"}), 400
   
 
   try:
     a = float(data["a"])
     b = float(data["b"])
+    c = float(data["c"])
 
-    if a < 0 or b < 0:
+    if a < 0 or b < 0 or c < 0:
       return jsonify({"error2": "Please provide positive income"}), 400
   
     if b < 1000:
@@ -42,6 +43,7 @@ def commit_sum():
   try:
     a = float(data["a"])
     b = float(data["b"])
+    c = float(data["c"])
     
     # this is where we save the inputs in a db
     #import db_manager
